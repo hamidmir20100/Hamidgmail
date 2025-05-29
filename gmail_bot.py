@@ -1,4 +1,5 @@
 import logging
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes, MessageHandler, filters
 
@@ -115,7 +116,8 @@ async def payment_confirmation(update: Update, context: ContextTypes.DEFAULT_TYP
 
 # Main function to run the bot
 def main() -> None:
-    application = ApplicationBuilder().token('7667045738:AAF5NuZaANiNSqBiydO7HVauRQROGLhfxGI').build()
+    token = os.environ['TELEGRAM_BOT_TOKEN']
+    application = ApplicationBuilder().token(token).build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button_handler))
